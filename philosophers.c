@@ -1,9 +1,31 @@
 #include "philosophers.h"
 
+void start_philosopher_threads(t_philo philosophers[], int n) {
+	int i;
+
+	i = 0;
+	while (i < n) {
+		pthread_create(&philosophers[i].thread, NULL, philosopher_routine, (t_philo *)&philosophers[i]);
+		i++;
+	}
+}
+
+void wait_philosophers(t_philo philosophers[], int n) {
+	int i;
+
+	i = 0;
+	while (i < n) {
+		pthread_join(philosophers[i].thread, NULL);
+		i++;
+	}
+}
+
 void simulate(t_simconf simconf) {
 	// Init forks
-	// Init philosophers
-	// Start philosopher threads
+	t_philo philosophers[simconf.num_philos];
+	init_philosophers(philosophers, simconf);
+	start_philosopher_threads(philosophers, simconf.num_philos);
+	wait_philosophers(philosophers, simconf.num_philos);
 	// Start death
 }
 
@@ -21,7 +43,7 @@ int main(int argc, char ** argv) {
 
 	if (argc != 5 && argc != 6)
 		return (0);
-	parse_simconf(&simconf);
+	parse_simconf(argv, &simconf);
 	simulate(simconf);
 	return 0;
 }

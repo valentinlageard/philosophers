@@ -2,6 +2,7 @@ NAME		=	philo
 SRC		=	philosophers.c \
 			death.c \
 			fork.c \
+			init.c \
 			philosopher_routine.c \
 			utils.c
 
@@ -14,7 +15,7 @@ CC			=	gcc $(FLAGS)
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			$(CC) $(OBJS) -o $(NAME)
+			$(CC) $(OBJS) $(LIBS) -o $(NAME)
 
 %.o: %.cpp
 			$(CC) -c $< -o $@
