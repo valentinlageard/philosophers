@@ -22,7 +22,7 @@ void take_forks(t_philo *philosopher)
 	right_fork_idx = philosopher->id - 2;
 	if (right_fork_idx < 0)
 		right_fork_idx = philosopher->simconf->num_philos - 1;
-	if (philosopher->id % 2)
+	if (philosopher->id % 2 == 0)
 	{
 		take_fork(philosopher, right_fork_idx, RIGHT);
 		take_fork(philosopher, left_fork_idx, LEFT);
@@ -57,8 +57,20 @@ void put_down_forks(t_philo *philosopher)
 	if (right_fork_idx < 0)
 		right_fork_idx = philosopher->simconf->num_philos - 1;
 
-	if (philosopher->right_fork_taken)
-		put_down_fork(philosopher, right_fork_idx, RIGHT);
-	if (philosopher->left_fork_taken)
-		put_down_fork(philosopher, left_fork_idx, LEFT);
+	if (philosopher->id % 2 == 0)
+	{
+		if (philosopher->right_fork_taken)
+			put_down_fork(philosopher, right_fork_idx, RIGHT);
+		if (philosopher->left_fork_taken)
+			put_down_fork(philosopher, left_fork_idx, LEFT);
+	}
+	else
+	{
+		if (philosopher->left_fork_taken) {
+			put_down_fork(philosopher, left_fork_idx, LEFT);
+		}
+		if (philosopher->right_fork_taken)
+			put_down_fork(philosopher, right_fork_idx, RIGHT);
+	}
+
 }

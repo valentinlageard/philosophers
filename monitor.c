@@ -23,13 +23,16 @@ void monitor(t_philo philosophers[], t_simconf *simconf) {
 		while (i < simconf->num_philos) {
 			// Add mutex protection for death check (last_meal_time !)
 			//printf("Checking philosopher %i : last_meal_time=%lli\n", philosophers[i].id, philosophers[i].last_meal_time);
+			pthread_mutex_lock(&philosophers[i].mutex_philo);
 			if ((timestamp() - philosophers[i].last_meal_time) >= simconf->time_to_die)
 			{
 				ft_log(&philosophers[i], "has died\n");
 				all_philosophers_should_die(philosophers, simconf);
 				starvation = 1;
+				pthread_mutex_unlock(&philosophers[i].mutex_philo);
 				break ;
 			}
+			pthread_mutex_unlock(&philosophers[i].mutex_philo);
 			// If num_eats_stop > 0
 				// If num_meals == num_eats_stop
 					// finished_philosophers++
@@ -39,6 +42,6 @@ void monitor(t_philo philosophers[], t_simconf *simconf) {
 			break ;
 		if (simconf->num_eats_stop > 0 && finished_philosophers == simconf->num_philos)
 			break ;
-		usleep(500);
+		usleep(1000);
 	}
 }
