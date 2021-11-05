@@ -39,6 +39,8 @@ int rest(t_philo *philosopher) {
 
 void think(t_philo *philosopher) {
 	ft_log(philosopher, "is thinking\n");
+	if (philosopher->id % 2 == 1)
+		usleep(1000);
 }
 
 void *philosopher_routine(void *args) {
