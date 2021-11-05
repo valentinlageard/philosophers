@@ -1,14 +1,15 @@
 #include "philosophers.h"
 
-void init_philosophers(t_philo philosophers[], t_simconf simconf) {
+void init_philosophers(t_philo philosophers[], t_simconf *simconf) {
 	int i;
 
 	i = 0;
-	while (i < simconf.num_philos) {
+	while (i < simconf->num_philos) {
 		philosophers[i].id = i + 1;
-		philosophers[i].time_to_die = simconf.time_to_die;
-		philosophers[i].time_to_eat = simconf.time_to_eat;
-		philosophers[i].time_to_sleep = simconf.time_to_sleep;
+		philosophers[i].simconf = simconf;
+		philosophers[i].num_meals = 0;
+		philosophers[i].last_meal_time = 0;
+		philosophers[i].should_die = 0;
 		i++;
 	}
 }

@@ -1,14 +1,14 @@
 NAME		=	philo
 SRC		=	philosophers.c \
-			death.c \
 			fork.c \
 			init.c \
+			monitor.c \
 			philosopher_routine.c \
 			utils.c
 
 OBJS		=	$(SRC:.c=.o)
 
-FLAGS		=	-Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra -Werror -g
 LIBS		=	-lpthread
 CC			=	gcc $(FLAGS)
 

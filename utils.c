@@ -1,9 +1,19 @@
 #include "philosophers.h"
 
-void	ft_log(t_philo * philosopher, char *s) {
-	printf("philosopher %d %s", philosopher->id, s);
+long long timestamp(void)
+{
+	struct timeval now;
+
+	gettimeofday(&now, NULL);
+	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
 }
 
+void	ft_log(t_philo * philosopher, char *s) {
+	long long now;
+
+	now = timestamp() - philosopher->simconf->start;
+	printf("%lli philosopher %d %s",now, philosopher->id, s);
+}
 
 static int	ft_is_space(char c)
 {
