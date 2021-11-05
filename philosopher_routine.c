@@ -1,9 +1,5 @@
 #include "philosophers.h"
 
-/*
- * Returns 1 if killed during sleep, else 0.
- */
-
 int ms_sleep(int ms, t_philo *philosopher) {
 	long long start;
 	long long t;
@@ -22,12 +18,12 @@ int ms_sleep(int ms, t_philo *philosopher) {
 }
 
 int eat(t_philo * philosopher) {
-	// take forks
+	take_forks(philosopher);
 	ft_log(philosopher, "is eating\n");
 	if (ms_sleep(philosopher->simconf->time_to_eat, philosopher) != 0)
 		return (1);
 	philosopher->last_meal_time = timestamp();
-	// put down forks
+	put_down_forks(philosopher);
 	return (0);
 }
 
@@ -55,6 +51,6 @@ void *philosopher_routine(void *args) {
 		if (philosopher->should_die)
 			break;
 	}
-	// If forks are in use, put them down
+	put_down_forks(philosopher);
 	return NULL;
 }

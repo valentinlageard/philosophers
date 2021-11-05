@@ -25,19 +25,17 @@ void wait_philosophers(t_philo philosophers[], int n) {
 }
 
 void simulate(t_simconf *simconf) {
-	// Init forks
+	pthread_mutex_t forks[simconf->num_philos];
 	t_philo philosophers[simconf->num_philos];
-	init_philosophers(philosophers, simconf);
+
+	init_forks(forks, simconf);
+	init_philosophers(philosophers, forks, simconf);
 	simconf->start = timestamp();
 	start_philosopher_threads(philosophers, simconf->num_philos);
 	monitor(philosophers, simconf);
 	wait_philosophers(philosophers, simconf->num_philos);
+	// TODO: Destroy mutexes
 }
-
-//void init_simconf(t_simconf *simconf) {
-//	//TODO: init forks and mutexes
-//}
-
 void parse_simconf(char ** argv, t_simconf *simconf) {
 	simconf->num_philos = ft_atoi(argv[1]);
 	simconf->time_to_die = ft_atoi(argv[2]);

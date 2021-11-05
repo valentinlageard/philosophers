@@ -5,6 +5,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <stdlib.h>
 
 typedef struct s_simconf {
 	int	num_philos;
@@ -15,10 +16,6 @@ typedef struct s_simconf {
 	long long start;
 }	t_simconf;
 
-typedef struct s_fork {
-	pthread_mutex_t mutex;
-}	t_fork;
-
 typedef struct s_philo {
 	int id;
 	pthread_t thread;
@@ -26,11 +23,23 @@ typedef struct s_philo {
 	int num_meals;
 	long long last_meal_time;
 	int should_die;
+	pthread_mutex_t *forks;
+	int left_fork_taken;
+	int right_fork_taken;
 }	t_philo;
+
+typedef enum {
+	LEFT,
+	RIGHT
+} t_fork_side;
 
 void	*philosopher_routine(void *args);
 
-void	init_philosophers(t_philo philosophers[], t_simconf *simconf);
+void	init_philosophers(t_philo philosophers[], pthread_mutex_t *forks, t_simconf *simconf);
+pthread_mutex_t 	*init_forks(pthread_mutex_t *forks, t_simconf *simconf);
+
+void	take_forks(t_philo *philosopher);
+void	put_down_forks(t_philo *philosopher);
 
 void	monitor(t_philo philosophers[], t_simconf *simconf);
 
