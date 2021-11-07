@@ -12,7 +12,7 @@ void	ft_log(t_philo * philosopher, char *s) {
 	long long now;
 
 	now = timestamp() - philosopher->simconf->start;
-	printf("%lli philosopher %d %s",now, philosopher->id, s);
+	printf("%lli %d %s",now, philosopher->id, s);
 }
 
 static int	ft_is_space(char c)

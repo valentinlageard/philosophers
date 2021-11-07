@@ -2,6 +2,8 @@
 
 //TODO: Add simulation ends with num_eats_stop
 //TODO: Manage non-scrambled print
+//TODO: Add error management
+//TODO: Manage 1 philosopher !
 
 void start_philosopher_threads(t_philo philosophers[], int n) {
 	int i;

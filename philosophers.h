@@ -39,7 +39,9 @@ void	*philosopher_routine(void *args);
 void	init_philosophers(t_philo philosophers[], pthread_mutex_t *forks, t_simconf *simconf);
 pthread_mutex_t 	*init_forks(pthread_mutex_t *forks, t_simconf *simconf);
 
-void	take_forks(t_philo *philosopher);
+
+int 	ms_sleep(int ms, t_philo *philosopher);
+int	take_forks(t_philo *philosopher);
 void	put_down_forks(t_philo *philosopher);
 
 void	monitor(t_philo philosophers[], t_simconf *simconf);

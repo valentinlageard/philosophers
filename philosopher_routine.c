@@ -18,16 +18,23 @@ int ms_sleep(int ms, t_philo *philosopher) {
 }
 
 int eat(t_philo * philosopher) {
-	take_forks(philosopher);
-	ft_log(philosopher, "is eating\n");
-	pthread_mutex_lock(&philosopher->mutex_philo);
-	philosopher->last_meal_time = timestamp();
-	pthread_mutex_unlock(&philosopher->mutex_philo);
-	if (ms_sleep(philosopher->simconf->time_to_eat, philosopher) != 0) {
+	if (take_forks(philosopher) == 0)
+	{
+		ft_log(philosopher, "is eating\n");
+		pthread_mutex_lock(&philosopher->mutex_philo);
+		philosopher->last_meal_time = timestamp();
+		pthread_mutex_unlock(&philosopher->mutex_philo);
+		if (ms_sleep(philosopher->simconf->time_to_eat, philosopher) != 0) {
+			return (1);
+		}
+		put_down_forks(philosopher);
+		return (0);
+	}
+	else
+	{
+		put_down_forks(philosopher);
 		return (1);
 	}
-	put_down_forks(philosopher);
-	return (0);
 }
 
 int rest(t_philo *philosopher) {
