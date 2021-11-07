@@ -1,9 +1,6 @@
 #include "philosophers.h"
 
-//TODO: Add simulation ends with num_eats_stop
-//TODO: Manage non-scrambled print
 //TODO: Add error management
-//TODO: Manage 1 philosopher !
 
 void start_philosopher_threads(t_philo philosophers[], int n) {
 	int i;
@@ -47,6 +44,7 @@ void parse_simconf(char ** argv, t_simconf *simconf) {
 		simconf->num_eats_stop = ft_atoi(argv[5]);
 	else
 		simconf->num_eats_stop = 0;
+	pthread_mutex_init(&simconf->mutex_print, NULL);
 }
 
 int main(int argc, char ** argv) {

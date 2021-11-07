@@ -23,6 +23,7 @@ int eat(t_philo * philosopher) {
 		ft_log(philosopher, "is eating\n");
 		pthread_mutex_lock(&philosopher->mutex_philo);
 		philosopher->last_meal_time = timestamp();
+		philosopher->num_meals++;
 		pthread_mutex_unlock(&philosopher->mutex_philo);
 		if (ms_sleep(philosopher->simconf->time_to_eat, philosopher) != 0) {
 			return (1);

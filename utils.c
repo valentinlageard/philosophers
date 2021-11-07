@@ -12,7 +12,9 @@ void	ft_log(t_philo * philosopher, char *s) {
 	long long now;
 
 	now = timestamp() - philosopher->simconf->start;
+	pthread_mutex_lock(&philosopher->simconf->mutex_print);
 	printf("%lli %d %s",now, philosopher->id, s);
+	pthread_mutex_unlock(&philosopher->simconf->mutex_print);
 }
 
 static int	ft_is_space(char c)
