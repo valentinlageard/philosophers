@@ -1,6 +1,6 @@
 #include "philosophers.h"
 
-//TODO: Add error management
+//TODO: Add error management for pthread_create
 
 void	start_philosopher_threads(t_philo philosophers[], int n)
 {
@@ -30,8 +30,8 @@ void	wait_philosophers(t_philo philosophers[], int n)
 
 void	simulate(t_simconf *simconf)
 {
-	pthread_mutex_t	forks[250];
-	t_philo			philosophers[250];
+	pthread_mutex_t	forks[1000];
+	t_philo			philosophers[1000];
 
 	init_forks(forks, simconf);
 	init_philosophers(philosophers, forks, simconf);
