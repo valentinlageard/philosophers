@@ -8,7 +8,7 @@ SRC		=	philosophers.c \
 
 OBJS		=	$(SRC:.c=.o)
 
-FLAGS		=	-Wall -Wextra -Werror -g
+FLAGS		=	-Wall -Wextra -Werror
 LIBS		=	-lpthread
 CC			=	gcc $(FLAGS)
 

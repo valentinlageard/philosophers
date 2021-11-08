@@ -1,18 +1,19 @@
 #include "philosophers.h"
 
-int manage_single_philo(t_philo *philosopher, int left_fork_idx, int right_fork_idx)
+int	manage_single_philo(t_philo *philosopher,
+	int left_fork_idx, int right_fork_idx)
 {
 	if (left_fork_idx == right_fork_idx)
 	{
 		ms_sleep(philosopher->simconf->time_to_die + 1, philosopher);
-		return 1;
+		return (1);
 	}
-	return 0;
+	return (0);
 }
 
-void take_fork(t_philo *philosopher, int fork_idx, t_fork_side fork_side)
+void	take_fork(t_philo *philosopher, int fork_idx, t_fork_side fork_side)
 {
-	pthread_mutex_t *fork;
+	pthread_mutex_t	*fork;
 
 	fork = &philosopher->forks[fork_idx];
 	pthread_mutex_lock(fork);
@@ -23,10 +24,10 @@ void take_fork(t_philo *philosopher, int fork_idx, t_fork_side fork_side)
 	ft_log(philosopher, "has taken a fork\n");
 }
 
-int take_forks(t_philo *philosopher)
+int	take_forks(t_philo *philosopher)
 {
-	int left_fork_idx;
-	int right_fork_idx;
+	int	left_fork_idx;
+	int	right_fork_idx;
 
 	left_fork_idx = philosopher->id - 1;
 	right_fork_idx = philosopher->id - 2;
@@ -41,15 +42,15 @@ int take_forks(t_philo *philosopher)
 	{
 		take_fork(philosopher, left_fork_idx, LEFT);
 		if (manage_single_philo(philosopher, left_fork_idx, right_fork_idx))
-			return 1;
+			return (1);
 		take_fork(philosopher, right_fork_idx, RIGHT);
 	}
-	return 0;
+	return (0);
 }
 
-void put_down_fork(t_philo *philosopher, int fork_idx, t_fork_side fork_side)
+void	put_down_fork(t_philo *philosopher, int fork_idx, t_fork_side fork_side)
 {
-	pthread_mutex_t *fork;
+	pthread_mutex_t	*fork;
 
 	fork = &philosopher->forks[fork_idx];
 	pthread_mutex_unlock(fork);
@@ -59,16 +60,15 @@ void put_down_fork(t_philo *philosopher, int fork_idx, t_fork_side fork_side)
 		philosopher->right_fork_taken = 0;
 }
 
-void put_down_forks(t_philo *philosopher)
+void	put_down_forks(t_philo *philosopher)
 {
-	int left_fork_idx;
-	int right_fork_idx;
+	int	left_fork_idx;
+	int	right_fork_idx;
 
 	left_fork_idx = philosopher->id - 1;
 	right_fork_idx = philosopher->id - 2;
 	if (right_fork_idx < 0)
 		right_fork_idx = philosopher->simconf->num_philos - 1;
-
 	if (philosopher->id % 2 == 0)
 	{
 		if (philosopher->right_fork_taken)
@@ -78,11 +78,9 @@ void put_down_forks(t_philo *philosopher)
 	}
 	else
 	{
-		if (philosopher->left_fork_taken) {
+		if (philosopher->left_fork_taken)
 			put_down_fork(philosopher, left_fork_idx, LEFT);
-		}
 		if (philosopher->right_fork_taken)
 			put_down_fork(philosopher, right_fork_idx, RIGHT);
 	}
-
 }

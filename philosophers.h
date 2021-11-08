@@ -8,13 +8,13 @@
 # include <stdlib.h>
 
 typedef struct s_simconf {
-	int			num_philos;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			num_eats_stop;
-	long long	start;
-	pthread_mutex_t mutex_print;
+	int				num_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_eats_stop;
+	long long		start;
+	pthread_mutex_t	mutex_print;
 }	t_simconf;
 
 typedef struct s_philo {

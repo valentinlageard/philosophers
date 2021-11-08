@@ -1,19 +1,20 @@
 #include "philosophers.h"
 
-long long timestamp(void)
+long long	timestamp(void)
 {
-	struct timeval now;
+	struct timeval	now;
 
 	gettimeofday(&now, NULL);
 	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
 }
 
-void	ft_log(t_philo * philosopher, char *s) {
-	long long now;
+void	ft_log(t_philo *philosopher, char *s)
+{
+	long long	now;
 
 	now = timestamp() - philosopher->simconf->start;
 	pthread_mutex_lock(&philosopher->simconf->mutex_print);
-	printf("%lli %d %s",now, philosopher->id, s);
+	printf("%lli %d %s", now, philosopher->id, s);
 	pthread_mutex_unlock(&philosopher->simconf->mutex_print);
 }
 
@@ -25,11 +26,11 @@ static int	ft_is_space(char c)
 		return (0);
 }
 
-int			ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
-	int i;
-	int sign_counter;
-	int result;
+	int	i;
+	int	sign_counter;
+	int	result;
 
 	i = 0;
 	sign_counter = 0;
