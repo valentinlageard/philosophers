@@ -6,13 +6,14 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 15:12:11 by valentin          #+#    #+#             */
-/*   Updated: 2021/11/08 15:12:43 by valentin         ###   ########.fr       */
+/*   Updated: 2021/11/08 16:11:36 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 //TODO: Add error management for pthread_create
+//TODO: Add error management in case negative number are given
 
 void	start_philosopher_threads(t_philo philosophers[], int n)
 {
@@ -51,7 +52,7 @@ void	simulate(t_simconf *simconf)
 	start_philosopher_threads(philosophers, simconf->num_philos);
 	monitor(philosophers, simconf);
 	wait_philosophers(philosophers, simconf->num_philos);
-	// TODO: Destroy mutexes
+	destroy_all_mutexes(forks, philosophers, simconf);
 }
 
 void	parse_simconf(char **argv, t_simconf *simconf)

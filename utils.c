@@ -6,11 +6,26 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 15:12:20 by valentin          #+#    #+#             */
-/*   Updated: 2021/11/08 15:12:45 by valentin         ###   ########.fr       */
+/*   Updated: 2021/11/08 16:10:44 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	destroy_all_mutexes(pthread_mutex_t *forks,
+	t_philo *philosophers, t_simconf *simconf)
+{
+	int	i;
+
+	i = 0;
+	while (i < simconf->num_philos)
+	{
+		pthread_mutex_destroy(&philosophers[i].mutex_philo);
+		pthread_mutex_destroy(&forks[i]);
+		i++;
+	}
+	pthread_mutex_destroy(&simconf->mutex_print);
+}
 
 long long	timestamp(void)
 {

@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 15:12:16 by valentin          #+#    #+#             */
-/*   Updated: 2021/11/08 15:12:44 by valentin         ###   ########.fr       */
+/*   Updated: 2021/11/08 16:11:19 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,7 @@ void			monitor(t_philo philosophers[], t_simconf *simconf);
 void			ft_log(t_philo *philosopher, char *s);
 int				ft_atoi(const char *nptr);
 long long		timestamp(void);
+void			destroy_all_mutexes(pthread_mutex_t *forks,
+					t_philo *philosophers, t_simconf *simconf);
 
 #endif
