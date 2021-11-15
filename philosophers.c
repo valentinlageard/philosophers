@@ -12,9 +12,6 @@
 
 #include "philosophers.h"
 
-//TODO: Add error management for pthread_create
-//TODO: Add error management in case negative number are given
-
 void	start_philosopher_threads(t_philo philosophers[], int n)
 {
 	int	i;
