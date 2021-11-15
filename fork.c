@@ -23,7 +23,7 @@ int	manage_single_philo(t_philo *philosopher,
 	return (0);
 }
 
-void	take_fork(t_philo *philosopher, int fork_idx, t_fork_side fork_side)
+int	take_fork(t_philo *philosopher, int fork_idx, t_fork_side fork_side)
 {
 	pthread_mutex_t	*fork;
 
@@ -33,13 +33,22 @@ void	take_fork(t_philo *philosopher, int fork_idx, t_fork_side fork_side)
 		philosopher->left_fork_taken = 1;
 	else
 		philosopher->right_fork_taken = 1;
+	pthread_mutex_lock(&philosopher->mutex_philo);
+	if (philosopher->should_die)
+	{
+		pthread_mutex_unlock(&philosopher->mutex_philo);
+		return (1);
+	}
 	ft_log(philosopher, "has taken a fork\n");
+	pthread_mutex_unlock(&philosopher->mutex_philo);
+	return (0);
 }
 
 int	take_forks(t_philo *philosopher)
 {
 	int	left_fork_idx;
 	int	right_fork_idx;
+	int	ret;
 
 	left_fork_idx = philosopher->id - 1;
 	right_fork_idx = philosopher->id - 2;
@@ -47,17 +56,19 @@ int	take_forks(t_philo *philosopher)
 		right_fork_idx = philosopher->simconf->num_philos - 1;
 	if (philosopher->id % 2 == 0)
 	{
-		take_fork(philosopher, right_fork_idx, RIGHT);
-		take_fork(philosopher, left_fork_idx, LEFT);
+		if (take_fork(philosopher, right_fork_idx, RIGHT) != 0)
+			return (1);
+		ret = take_fork(philosopher, left_fork_idx, LEFT);
 	}
 	else
 	{
-		take_fork(philosopher, left_fork_idx, LEFT);
+		if (take_fork(philosopher, left_fork_idx, LEFT) != 0)
+			return (1);
 		if (manage_single_philo(philosopher, left_fork_idx, right_fork_idx))
 			return (1);
-		take_fork(philosopher, right_fork_idx, RIGHT);
+		ret = take_fork(philosopher, right_fork_idx, RIGHT);
 	}
-	return (0);
+	return (ret);
 }
 
 void	put_down_fork(t_philo *philosopher, int fork_idx, t_fork_side fork_side)

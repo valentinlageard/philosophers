@@ -59,6 +59,8 @@ int				take_forks(t_philo *philosopher);
 void			put_down_forks(t_philo *philosopher);
 
 void			monitor(t_philo philosophers[], t_simconf *simconf);
+void			all_philosophers_should_die(t_philo philosophers[],
+					t_simconf *simconf);
 
 void			ft_log(t_philo *philosopher, char *s);
 int				ft_atoi(const char *nptr);

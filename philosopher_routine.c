@@ -45,11 +45,8 @@ int	eat(t_philo *philosopher)
 		put_down_forks(philosopher);
 		return (0);
 	}
-	else
-	{
-		put_down_forks(philosopher);
-		return (1);
-	}
+	put_down_forks(philosopher);
+	return (1);
 }
 
 int	rest(t_philo *philosopher)
