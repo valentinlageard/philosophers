@@ -25,8 +25,13 @@ int	ms_sleep(int ms, t_philo *philosopher)
 	{
 		t = timestamp();
 		usleep(100);
+		pthread_mutex_lock(&philosopher->mutex_philo);
 		if (philosopher->should_die)
+		{
+			pthread_mutex_unlock(&philosopher->mutex_philo);
 			return (1);
+		}
+		pthread_mutex_unlock(&philosopher->mutex_philo);
 	}
 	return (0);
 }
@@ -76,8 +81,13 @@ void	*philosopher_routine(void *args)
 		if (rest(philosopher) != 0)
 			break ;
 		think(philosopher);
+		pthread_mutex_lock(&philosopher->mutex_philo);
 		if (philosopher->should_die)
+		{
+			pthread_mutex_unlock(&philosopher->mutex_philo);
 			break ;
+		}
+		pthread_mutex_unlock(&philosopher->mutex_philo);
 	}
 	put_down_forks(philosopher);
 	return (NULL);

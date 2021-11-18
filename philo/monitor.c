@@ -12,6 +12,21 @@
 
 #include "philosophers.h"
 
+int	check_parse(t_simconf simconf)
+{
+	if (simconf.num_philos > 1000 || simconf.num_philos < 1)
+		return (1);
+	if (simconf.time_to_die <= 0)
+		return (1);
+	if (simconf.time_to_eat <= 0)
+		return (1);
+	if (simconf.time_to_sleep <= 0)
+		return (1);
+	if (simconf.num_eats_stop < 0)
+		return (1);
+	return (0);
+}
+
 void	all_philosophers_should_die(t_philo philosophers[], t_simconf *simconf)
 {
 	int	i;

@@ -75,8 +75,6 @@ int	simulate(t_simconf *simconf)
 int	parse_simconf(char **argv, t_simconf *simconf)
 {
 	simconf->num_philos = ft_atoi(argv[1]);
-	if (simconf->num_philos > 1000 || simconf->num_philos < 1)
-		return (1);
 	simconf->time_to_die = ft_atoi(argv[2]);
 	simconf->time_to_eat = ft_atoi(argv[3]);
 	simconf->time_to_sleep = ft_atoi(argv[4]);
@@ -94,9 +92,11 @@ int	main(int argc, char **argv)
 
 	if (argc != 5 && argc != 6)
 		return (1);
-	if (parse_simconf(argv, &simconf) != 0)
+	parse_simconf(argv, &simconf);
+	if (check_parse(simconf) != 0)
 	{
-		printf("Error: philosopher number is invalid\n");
+		printf("Error: invalid args\n");
+		pthread_mutex_destroy(&simconf.mutex_print);
 		return (1);
 	}
 	if (simulate(&simconf) != 0)
