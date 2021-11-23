@@ -69,5 +69,4 @@ void			destroy_all_mutexes(pthread_mutex_t *forks,
 					t_philo *philosophers, t_simconf *simconf);
 int				check_parse(t_simconf simconf);
 
-
 #endif
